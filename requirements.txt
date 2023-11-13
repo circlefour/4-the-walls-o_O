@@ -1,0 +1,9 @@
+futures==3.0.5
+imutils==0.5.4
+numpy==1.26.1
+opencv-python==4.7.0.72
+Pillow==10.1.0
+pypng==0.20220715.0
+qrcode==7.4.2
+scipy==1.11.3
+typing_extensions==4.8.0
