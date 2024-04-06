@@ -33,6 +33,27 @@ def block_glitch(frame, iterations=40, trippy=False):
             continue
     return glitched_face
 
+def pixelation(frame, px=10):
+    face_roi = frame
+    roi_height, roi_width, _ = face_roi.shape
+   
+    w = roi_width//px
+    h = roi_height//px
+
+    if w == 0 or h == 0:
+        px = 1
+        w = roi_width
+        h = roi_height
+            
+    # FIXME: do this without loops : with some numpy functions prolly
+    for i in range(px):
+        for j in range(px):
+            block = face_roi[i*h : i*h + h, j*w : j*w + w]
+            if np.any(np.isnan(block)) or np.any(np.isinf(block)):
+                continue
+            face_roi[i*h : i*h + h, j*w : j*w + w] = np.mean(block, axis=(0,1))
+    return frame
+
 def gaussian_blur(frame):
     return gaussian_filter(frame, sigma=7)
 

@@ -24,13 +24,16 @@ def main():
     sources = {'webcam': 0}
 
     glitch_functs = [
-        (face_cage, {}),
+        #(face_cage, {}),
         # iterations > 100 is pretty much what i was running
-        (block_glitch, {'iterations': 5}),
+        #(block_glitch, {'iterations': 100}),
+        (pixelation, {}),
     ]
 
     filter_functs = [
-        (linear_combination_of_frames, {}),
+        # (linear_combination_of_frames, {}),
+        # (glitched_grey, {}),
+        #(first, {}),
     ]
 
     with VideoStreams(sources) as caps:
@@ -49,7 +52,8 @@ def main():
 
                 # Draw results on the input
                 apply_face_glitch(frame, faces, glitch_functs)
-                frame[0:frame.shape[0],0:frame.shape[1]//2] = apply_frame_filter(frame[0:frame.shape[0],0:frame.shape[1]//2], filter_functs)
+                frame = apply_frame_filter(frame, filter_functs)
+                # frame[0:frame.shape[0],0:frame.shape[1]//2] = apply_frame_filter(frame[0:frame.shape[0],0:frame.shape[1]//2], filter_functs)
                 
                 display_window.display_frame(frame)
                 
